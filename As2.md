@@ -64,8 +64,6 @@ $$
 
 ## 3
 
-### 
-
 $$
 A\in \mathbb{R}^{m\times n}\wedge m>n
 $$
@@ -82,6 +80,24 @@ Ax&=QRx=b\\
 \Leftrightarrow Rx&=Q^{\top}b
 \end{align}
 $$
+
+### Output
+
+```log
+# Q
+[[ 5.77350269e-01  2.04124145e-01  3.53553391e-01]
+ [ 0.00000000e+00  6.12372436e-01  3.53553391e-01]
+ [ 0.00000000e+00  0.00000000e+00  7.07106781e-01]
+ [-5.77350269e-01  4.08248290e-01 -1.17756934e-16]
+ [-5.77350269e-01 -2.04124145e-01  3.53553391e-01]
+ [ 0.00000000e+00 -6.12372436e-01  3.53553391e-01]]
+# R
+[[ 1.73205081 -0.57735027 -0.57735027]
+ [ 0.          1.63299316 -0.81649658]
+ [ 0.          0.          1.41421356]]
+# x
+[1236. 1943. 2416.]
+```
 
 ## 4
 
@@ -120,91 +136,83 @@ $$
 
 ## 5
 
-```python
-import sympy as sp
+$$
+x_{k+1}=x_k-\frac{f(x_k)}{f^{\prime}(x_k)}
+$$
 
-# Define the variable and function for Newton's method
-x = sp.symbols('x')
-f = x**2 - 1
-
-# Compute the derivative of the function
-f_prime = sp.diff(f, x)
-
-# Define the Newton's method function
-def newtons_method(f, f_prime, initial_guess, iterations):
-    approximations = [initial_guess]
-    x_n = initial_guess
-    for n in range(iterations):
-        x_n = x_n - f.subs(x, x_n) / f_prime.subs(x, x_n)
-        approximations.append(x_n)
-    return approximations
-
-# Apply Newton's method with x0 = 2 for 4 iterations
-approximations_positive = newtons_method(f, f_prime, 2, 4)
-
-# Apply Newton's method with x0 = -2 for 4 iterations
-approximations_negative = newtons_method(f, f_prime, -2, 4)
-
-(approximations_positive, approximations_negative)
-
-```
-
-
+Please refer to `as2_5.py` for more information.
 
 The iteration history for the function $f(x)=x^2-1$ using Newton's method with $x_0=2$ for 4 iterations is:
 
-1. $x_1={5\over4}$
-2. $x_2={41\over40}$
-3. $x_3={3281\over 3280}$
+0. $x_0=2,h=-{3\over4}$
+1. $x_1={5\over4},h=-{9\over40}$
+2. $x_2={41\over40},h=-{81\over3280}$
+3. $x_3={3281\over 3280},h=-{6561\over21523360}$
 4. $x_3={21523361\over 21523360}$
 
 When we start with $x_0=-2$, the iteration history is:
 
-1. $x_1=-{5\over4}$
-2. $x_2=-{41\over40}$
-3. $x_3=-{3281\over 3280}$
+0. $x_0=-2,h={3\over4}$
+1. $x_1=-{5\over4},h={9\over40}$
+2. $x_2=-{41\over40},h={81\over3280}$
+3. $x_3=-{3281\over 3280},h={6561\over21523360}$
 4. $x_3=-{21523361\over 21523360}$
 
 The sequences converge to the roots of the function, which are $x=1$ and $x=-1$, respectively. The sequences are symmetrical because the function is symmetrical and the initial guesses are symmetrical about the origin.
 
 ## 6
 
-```python
-import numpy as np
+$$
+x_{k+1}=x_k-f(x_k)\frac{x_k-x_{k-1}}{f(x_k)-f(x_{k-1})}
+$$
 
-# Define the function
-def f(x):
-    return x**2 - 1
-
-# Define the secant method
-def secant_method(f, x0, x1, iterations):
-    results = []
-    for _ in range(iterations):
-        # Calculate the next approximation
-        x2 = x1 - f(x1) * (x1 - x0) / (f(x1) - f(x0))
-        results.append(x2)
-        # Update x0 and x1 for the next iteration
-        x0, x1 = x1, x2
-    return results
-
-# Apply the secant method
-x0 = 3
-x1 = 2
-iterations = 6
-approximations = secant_method(f, x0, x1, iterations)
-approximations
-```
+Please refer to `as2_6.py` for more information.
 
 After applying the secant method to the function $f(x)=x^2-1$ with starting points $x_0=3$ and $x_1=2$, and performing 6 iterations, the sequence of approximations to the root is:
 
-1. $x_2=1.4$
-2. $x_3=1.1176470588235294$
-3. $x_4=1.0186915887850467$
-4. $x_5=1.0010293360782296$
-5. $x_6=1.0000095260322646$
+0. $x_1=2, h=-0.6$
+1. $x_2=1.4, h=-0.2823529411764706$
+2. $x_3=1.1176470588235294,h=-0.0989554700384827$
+3. $x_4=1.0186915887850467,h=-0.017662252706817205$
+4. $x_5=1.0010293360782296,h=-0.0010198100459649776$
+5. $x_6=1.0000095260322646,h=-9.52113206547989\times10^{-6}$
 6. $x_7=1.0000000049001991$
 
 As we can see, the approximations are converging towards $1$.
 
 ## 7
+
+### Core code
+
+```python
+# Define the Newton's method function
+def newton(f, df, a, b, iterations=5):
+    x_n = (a + b) / 2
+    for _ in range(iterations):
+        fx = f(x_n)
+        dfx = df(x_n)
+        x_n = x_n - fx / dfx
+
+    assert a <= x_n <= b # Ensure the root is within the interval
+    return x_n
+
+# Define the Bisection method function
+def bisect(f, a, b, iterations=15):
+    for _ in range(iterations):
+        c = (a + b) / 2
+        if f(a) * f(c) < 0:
+            b = c
+        else:
+            a = c
+    return c
+```
+
+### Output
+
+```log
+# roots obtained by Bisection method function
+[-0.90618896484375, -0.53846435546875, -1.2207031249888982e-05, 0.53846435546875, 0.90618896484375]
+# roots obtained by Newton's method function
+[-0.9062605812803672, -0.538469310105683, 0.0, 0.538469310105683, 0.9062605812803672]
+```
 

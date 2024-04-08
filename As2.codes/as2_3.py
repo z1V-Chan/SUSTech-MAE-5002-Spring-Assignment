@@ -34,10 +34,10 @@ def main():
     A = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1], [-1, 1, 0], [-1, 0, 1], [0, -1, 1]])
     b = np.array([1237, 1941, 2417, 711, 1177, 475])
     Q, R = QR_factorization(A)
-    print(A)
+    # print(A)
     print(Q)
     print(R)
-    print(np.sum(np.abs((Q @ R) - A)))
+    # print(np.sum(np.abs((Q @ R) - A)))
     
     x = Ux_equal_b_solution(R, Q.T @ b)
     print(x)
