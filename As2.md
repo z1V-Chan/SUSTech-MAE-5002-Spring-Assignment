@@ -216,3 +216,197 @@ def bisect(f, a, b, iterations=15):
 [-0.9062605812803672, -0.538469310105683, 0.0, 0.538469310105683, 0.9062605812803672]
 ```
 
+## 8
+
+### a
+
+$$
+\begin{align}
+\lim_{x\rightarrow-\infty}{f(x)}&=-\infty\\
+\lim_{x\rightarrow+\infty}{f(x)}&=+\infty
+\end{align}
+$$
+
+Therefore, $\lim_{|x|\rightarrow+\infty}{f(x)}\neq+\infty$ and $f(x)$ is not coercive. Then $f(x)$ could only have local minimum local maximum on $\mathbb{R}$.
+$$
+\begin{align}
+\frac{\partial f(x)}{\partial x}&=3x^2+12x-15=3(x+5)(x-1)\\
+\frac{\partial^2f(x)}{\partial x^2}&=6x+12
+\end{align}
+$$
+Thus,
+$$
+\frac{\partial f(x)}{\partial x}=0\Leftrightarrow x_1=-5,x_2=1
+$$
+The critical points are $x_1=-5,x_2=1$.
+$$
+\begin{align}
+\frac{\partial^2f(x)}{\partial x^2}_{x=x_1}&=6\times(-5)+12=-18<0\\
+\frac{\partial^2f(x)}{\partial x^2}_{x=x_2}&=6\times1+12=18>0
+\end{align}
+$$
+Thus, $x_1=-5$ is local maximum and $x_2=1$ is local  minimum of $f(x)$ on $\mathbb{R}$.
+
+### d
+
+
+$$
+\begin{align}
+\lim_{x\rightarrow-\infty}{f(x)}&=0\label{31}\\
+\lim_{x\rightarrow+\infty}{f(x)}&=+\infty
+\end{align}
+$$
+
+Therefore, $\lim_{|x|\rightarrow+\infty}{f(x)}\neq+\infty$ and $f(x)$ is not coercive. However, $\eqref{31}$ implies that $f(x)$ could have global minimum on $\mathbb{R}$. $f(x)$ could only have local maximum on $\mathbb{R}$.
+$$
+\begin{align}
+\frac{\partial f(x)}{\partial x}&=x^2e^x+2xe^x=x(x+2)e^x\\
+\frac{\partial^2f(x)}{\partial x^2}&=x^2e^x+4xe^x+2e^x=(x^2+4x+2)e^x
+\end{align}
+$$
+Thus,
+$$
+\frac{\partial f(x)}{\partial x}=0\Leftrightarrow x_1=-2,x_2=0
+$$
+The critical points are $x_1=-2,x_2=0$.
+$$
+\begin{align}
+\frac{\partial^2f(x)}{\partial x^2}_{x=x_1}&=-2e^{-2}<0\\
+\frac{\partial^2f(x)}{\partial x^2}_{x=x_2}&=2>0
+\end{align}
+$$
+Thus, $x_1=-2$ is local maximum and $x_2=0$ is local  minimum of $f(x)$ on $\mathbb{R}$.
+$$
+f(0)=0=\lim_{x\rightarrow-\infty}{f(x)}=0
+$$
+$x_2=0$ is also global minimum of $f(x)$ on $\mathbb{R}$.
+
+## 9
+
+### Core code
+
+```python
+# Implementation of the Golden Section Search algorithm
+def golden_section_search(f, a, b, tol=3e-3):
+    record = []
+
+    tau = (np.sqrt(5) - 1) / 2  # Golden ratio
+
+    # Initial two points and their function values
+    x1 = a + (1 - tau) * (b - a)
+    x2 = a + tau * (b - a)
+    f1 = f(x1)
+    f2 = f(x2)
+
+    # Iteration loop
+    while (b - a) > tol:
+        record += [[x1, f1, x2, f2]]
+        if f1 < f2:
+            b = x2
+            x2 = x1
+            f2 = f1
+            x1 = a + (1 - tau) * (b - a)
+            f1 = f(x1)
+        else:
+            a = x1
+            x1 = x2
+            f1 = f2
+            x2 = a + tau * (b - a)
+            f2 = f(x2)
+
+    # Return the approximated minimum location
+    return a, b, record
+```
+
+### Output
+
+```log
+# minimum location, minimum value
+0.7077508286455843 0.8713355239628642
+# [x1, f1, x2, f2]
+[0.7639320225002102, 0.8721428186736883, 1.2360679774997898, 0.9195324670920649]
+[0.4721359549995794, 0.8866611708763403, 0.7639320225002102, 0.8721428186736883]
+[0.7639320225002102, 0.8721428186736883, 0.9442719099991589, 0.8838605155861354]
+[0.6524758424985279, 0.8721220125648489, 0.7639320225002102, 0.8721428186736883]
+[0.5835921350012617, 0.8754571597011437, 0.6524758424985279, 0.8721220125648489]
+[0.6524758424985279, 0.8721220125648489, 0.6950483150029442, 0.871373044567459]
+[0.6950483150029442, 0.871373044567459, 0.7213595499957939, 0.871387334994435]
+[0.6787870774913776, 0.8715444673539482, 0.6950483150029442, 0.871373044567459]
+[0.6950483150029442, 0.871373044567459, 0.7050983124842272, 0.8713364562887198]
+[0.7050983124842272, 0.8713364562887198, 0.7113095525145109, 0.8713399534896091]
+[0.7012595550332279, 0.8713442394539668, 0.7050983124842272, 0.8713364562887198]
+[0.7050983124842272, 0.8713364562887198, 0.7074707950635116, 0.8713354513477254]
+[0.7074707950635116, 0.8713354513477254, 0.7089370699352264, 0.8713362785522915]
+[0.706564587355942, 0.8713354929233407, 0.7074707950635116, 0.8713354513477254]
+```
+
+## 10
+
+### Core Code
+
+```python
+def steepest_descent_method(
+    start_point, alpha=2e-3, tolerance=1e-5, max_iterations=4000
+):
+    # Starting point
+    x, y = start_point
+
+    # Keep track of the iterations and the path taken
+    path = [(x, y)]
+    for iteration in range(max_iterations):
+        # Calculate the gradient at the current point
+        grad = f_g(x, y)
+
+        # Check if the magnitude of the gradient is small enough to stop
+        if np.linalg.norm(grad) < tolerance:
+            break
+
+        # Update the current point by moving in the opposite direction of the gradient
+        x, y = x - alpha * grad[0], y - alpha * grad[1]
+
+        # Save the new point
+        path.append((x, y))
+
+    # Return the final point and the path
+    return (x, y), path
+
+
+def newton_method(start_point, tolerance=1e-5, max_iterations=4000):
+    # Starting point
+    x, y = start_point
+
+    # Keep track of the iterations and the path taken
+    path = [(x, y)]
+    for iteration in range(max_iterations):
+        # Calculate the gradient and Hessian at the current point
+        grad = f_g(x, y)
+        hessian = f_g_g(x, y)
+
+        # Check if the magnitude of the gradient is small enough to stop
+        if np.linalg.norm(grad) < tolerance:
+            break
+
+        # Calculate the Newton update step
+        # Note: We use `np.linalg.inv` to invert the Hessian matrix
+        # This could be improved by solving the linear system instead of inverting the Hessian
+        delta = np.linalg.solve(hessian, -grad)
+
+        # Update the current point with the Newton step
+        x, y = x + delta[0], y + delta[1]
+
+        # Save the new point
+        path.append((x, y))
+
+    # Return the final point and the path
+    return (x, y), path
+```
+
+### Output
+
+<center><img src=".\As2.assets\Figure_1.svg" alt="Figure_2" style="width:49%;" /><img src=".\As2.assets\Figure_2.svg" alt="Figure_2" style="width:49%;" /></center>
+
+```log
+# minimum location (x,y) path length
+(0.9883758370456498, 0.976839953726074) 4001 # steepest_descent
+(0.9999999999941024, 0.9999999999882049) 6 # newton
+```
