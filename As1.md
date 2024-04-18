@@ -198,7 +198,7 @@ $$
 \begin{align}
 U&=L_mP_m\cdots L_1P_1A=LPA\\
 P&=P_m\cdots P_1\\
-L&=L_mP_m\cdots L_1P_1P^\top
+L&=L_m\cdots L_1P_1P^\top
 \end{align}
 $$
 
@@ -207,7 +207,7 @@ $$
 $$
 \begin{align}
 Ax=b&\Leftrightarrow LPAx=\textcolor{blue}{Ux=LPb}\\
-A[x_1, \cdots, x_n]=[b_1,\cdots, b_n]&\Leftrightarrow I=[e_1,\cdots,c_n]=AA^{-1}
+A[x_1, \cdots, x_n]=[b_1,\cdots, b_n]&\Leftrightarrow I=[e_1,\cdots,e_n]=AA^{-1}
 \end{align}
 $$
 

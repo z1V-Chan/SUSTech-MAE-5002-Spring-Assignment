@@ -51,15 +51,16 @@ $$
 
 ### b
 
+To avoid cancellation,
 $$
-\Vert c_1\Vert e_1=[2,0,0,0]^\top
+-\Vert c_1\Vert e_1=[-2,0,0,0]^\top
 $$
 
 ### c
 
 The first column would not change.
 $$
-[2,0,0,0]^\top
+[-2,0,0,0]^\top
 $$
 
 ## 3
