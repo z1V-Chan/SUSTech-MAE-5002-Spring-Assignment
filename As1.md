@@ -8,9 +8,9 @@ As for `0`, $\forall i, d_i=0\wedge s=0\wedge E=0$. Only $1$ case.
 
 As for signed floating numbers, $0<d_0\le\beta-1\wedge1\le0\le\beta-1,0<i\le p-1\wedge L\le E\le U$. 
 
-$(\beta-1)\beta^{p-1}(U-L+1)$ cases.
+$2(\beta-1)\beta^{p-1}(U-L+1)$ cases.
 
-Totally, $(\beta-1)\beta^{p-1}(U-L+1)+1$ cases.
+Totally, $2(\beta-1)\beta^{p-1}(U-L+1)+1$ cases.
 
 The smallest fraction part is $1$. The smallest exponent part is $L$. The smallest positive floating number is $1\times\beta^L=\beta^L$.
 
