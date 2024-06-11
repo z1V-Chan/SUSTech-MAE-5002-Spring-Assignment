@@ -172,7 +172,18 @@ $$
 \int_{-1}^1{\frac{T_i(t)T_j(t)}{\sqrt{1-t^2}}{\rm d}t}=\frac{\pi}{2}\delta_{i,j}
 $$
 
+### b
 
+$$
+\begin{align}
+T_3(t)&=\cos{(3\arccos{t})}=\cos{3x}\\
+&=\cos{(2x+x)}=\cos{2x}\cos{x}-\sin{2x}\sin{x}\\
+&=(2\cos^2{x}-1)\cos{x}-2\cos{x}\sin^2{x}\\
+&=2\cos^3{x}-\cos{x}-2\cos{x}(1-\cos^2{x})\\
+&=4\cos^3{x-3\cos{x}}\\
+&=4t^3-3t
+\end{align}
+$$
 
 ## 4
 
