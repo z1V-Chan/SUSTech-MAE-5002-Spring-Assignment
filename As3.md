@@ -172,6 +172,8 @@ $$
 \int_{-1}^1{\frac{T_i(t)T_j(t)}{\sqrt{1-t^2}}{\rm d}t}=\frac{\pi}{2}\delta_{i,j}
 $$
 
+
+
 ## 4
 
 ### Core Code

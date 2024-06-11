@@ -300,7 +300,7 @@ $$
 
 #### Result
 
-<img src=".\As4.assets\Figure_4.svg" style="width:95%;" />
+<img src=".\As4.assets\Figure_5.svg" style="width:95%;" />
 
 ## 7
 
@@ -322,9 +322,9 @@ $$
 $$
 From the figure,
 $$
-u(1,0.5)=0, u(0,0.5)=0, u(0.5,1)=0, u(0.5,0)=0
+u(1,0.5)=1, u(0,0.5)=0, u(0.5,1)=1, u(0.5,0)=0
 $$
 Thus,
 $$
--16u(0.5,0.5)=1\Leftrightarrow u(0.5,0.5)=-\frac{1}{16}=-0.0625
+4(2-4u(0.5,0.5))=1\Leftrightarrow u(0.5,0.5)=\frac{7}{16}=0.4375
 $$
